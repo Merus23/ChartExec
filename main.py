@@ -33,10 +33,8 @@ def Chart(source):
    
     plt.savefig(name+'.png')
 
-Chart('dataset/dates.xlsx')
 
 
-'''
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python main.py <source path>")
@@ -44,6 +42,4 @@ if __name__ == "__main__":
     
     source = sys.argv[1]
 
-
-    transcripter(source=source)
-'''
+    Chart(source=source)
