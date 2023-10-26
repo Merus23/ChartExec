@@ -28,4 +28,6 @@ plt.ylabel('Eixo Y')
 plt.title('Gráfico de Dispersão')
 plt.legend()
 plt.grid(True)
-plt.show()
+plt.savefig('grafico.png')
+
+#plt.show()
