@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import platform
-
+import sys
 
 def Chart(source):
     extension = source.split('.')[-1]
@@ -9,8 +9,8 @@ def Chart(source):
         data = pd.read_excel(source)
     elif extension == 'csv':
         data = pd.read_csv(source)
-    else:
-        data = pd.read_excel(source, engine='odf')
+    elif extension == 'xls':
+        data = pd.read_excel(source)
 
 
     x = data['X']
@@ -41,5 +41,5 @@ if __name__ == "__main__":
         sys.exit(1)
     
     source = sys.argv[1]
-
+    
     Chart(source=source)
