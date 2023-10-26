@@ -1,33 +1,49 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import platform
 
-# Leia o arquivo (substitua 'seu_arquivo.xlsx' pelo nome do seu arquivo)
-# Para arquivos XLSX
-data = pd.read_excel('dataset/dates.xlsx')
 
-# Para arquivos CSV
-# data = pd.read_csv('seu_arquivo.csv')
+def Chart(source):
+    extension = source.split('.')[-1]
+    if extension == 'xlsx':    
+        data = pd.read_excel(source)
+    elif extension == 'csv':
+        data = pd.read_csv(source)
+    else:
+        data = pd.read_excel(source, engine='odf')
 
-# Para arquivos ODS (precisa da biblioteca 'pyexcel-ods3')
-# data = pd.read_excel('seu_arquivo.ods', engine='odf')
 
-# Vamos assumir que suas colunas são chamadas 'X' e 'Y'
-# Se os nomes das colunas forem diferentes, ajuste os nomes na linha abaixo
-# Por exemplo, se suas colunas forem 'ColunaX' e 'ColunaY', você usaria:
-# x = data['ColunaX']
-# y = data['ColunaY']
+    x = data['X']
+    y = data['Y']
 
-x = data['X']
-y = data['Y']
+    # Crie o gráfico
+    plt.figure(figsize=(10, 6))
+    plt.plot(x, y, marker='o', linestyle='-', color='b', label='Dados')
+    plt.xlabel('Eixo X')
+    plt.ylabel('Eixo Y')
+    plt.title('Gráfico de Dispersão')
+    plt.legend()
+    plt.grid(True)
 
-# Crie o gráfico
-plt.figure(figsize=(10, 6))
-plt.plot(x, y, marker='o', linestyle='-', color='b', label='Dados')
-plt.xlabel('Eixo X')
-plt.ylabel('Eixo Y')
-plt.title('Gráfico de Dispersão')
-plt.legend()
-plt.grid(True)
-plt.savefig('grafico.png')
+    so = platform.system()
+    if so == 'Windows':
+        name = source.split('\\')[-1].split('.')[0]
+    else:
+        name = source.split('/')[-1].split('.')[0]
+   
+    plt.savefig(name+'.png')
 
-#plt.show()
+Chart('dataset/dates.xlsx')
+
+
+'''
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python main.py <source path>")
+        sys.exit(1)
+    
+    source = sys.argv[1]
+
+
+    transcripter(source=source)
+'''
