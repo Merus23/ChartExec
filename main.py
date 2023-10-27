@@ -3,15 +3,19 @@ import matplotlib.pyplot as plt
 import platform
 import sys
 
-def Chart(source):
-    extension = source.split('.')[-1]
-    if extension == 'xlsx':    
-        data = pd.read_excel(source)
-    elif extension == 'csv':
-        data = pd.read_csv(source)
-    elif extension == 'xls':
-        data = pd.read_excel(source)
+def Chart():
+    
+    caminho = os.getcwd()
+    itens = os.listdir(caminho)
 
+    for item in itens:
+        extension = item.split('.')[-1]
+        if extension == 'xlsx':    
+            data = pd.read_excel(item)
+        elif extension == 'csv':
+            data = pd.read_csv(item)
+        elif extension == 'xls':
+            data = pd.read_excel(item)
 
     x = data['X']
     y = data['Y']
@@ -36,10 +40,5 @@ def Chart(source):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python main.py <source path>")
-        sys.exit(1)
-    
-    source = sys.argv[1]
-    
-    Chart(source=source)
+    print("Execute in the same directory of the sheets")
+    Chart()
